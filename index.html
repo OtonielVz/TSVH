@@ -1,131 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
+<!--Archivo creado por Otoniel PalaciosVZ...T2👁‍🗨-->
 <head>
-    <meta charset="UTF-8" />
-    <!--BY Otoniel PalaciosVz-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="https://i.ibb.co/G9T33Zy/favicon.png" type="image/x-icon" />
-    <title>Inconsistencia TS-HV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria | Excedente/Faltante TSHV</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/G9T33Zy/favicon.png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Space+Grotesk:wght@300..700&display=swap');
+
+        * {
             margin: 0;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", serif;
         }
-        .container {
+
+        body {
+            background-color: rgb(244, 244, 244);
             display: flex;
-            flex-direction: column;
+            gap: 80px;
             justify-content: center;
-            align-items: center;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            padding: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            width: 100%;
+            height: fit-content;
         }
-        h1 {
+
+        search {
+            background-color: #fff;
+            width: 40em;
+            height: 44em;
+            overflow: hidden;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 40px;
+        }
+
+        select {
+            grid-column: span 2;
             text-align: center;
-            margin-bottom: 20px;
+            height: 2.4em;
         }
+
         label {
-            margin-top: 10px;
+            grid-column: 1;
+            font-weight: 500;
+            color: #333;
         }
-        input,
-        select,
-        button {
-            padding: 10px;
-            width: 90%;
-            margin-top: 10px;
-            border: 1px solid #ccc;
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            transition: border 0.2s;
-        }
-        input:focus,
-        select:focus {
-            border-color: #007bff;
             outline: none;
+            caret-color: rgb(255, 0, 0);
         }
+
         button {
-            background-color: #007bff;
+            grid-column: span 2;
+            padding: 10px;
+            background-color: #333333;
             color: white;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: 600;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #4a4a4a;
         }
-        .output-container {
+
+        .containerText {
+            background-color: white;
+            width: 28em;
+            height: 30em;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
-            margin-left: 20px;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: auto;
         }
-        h2 {
-            margin-top: 20px;
+
+        p {
+            font-size: 14px;
+            text-align: justify;
+            padding: 10px;
+        }
+        .copiar{
+            width: 10em;
+            display: none;
+        }
+        .copiar:active{
+            background-color: #000;
+        }
+        .modal{
+            position: absolute;
+            top: 20px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+            display: none;
+        }
+        h1{
+            padding: 10px;
             text-align: center;
         }
-        p {
-            border: 1px dashed #ccc;
-            padding: 10px;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-            word-wrap: break-word;
-            width: 300px;
+        @media (max-width:760px){
+        search {
+            background-color: #fff;
+            width: 40em;
+            height: 44em;
+            overflow: hidden;
         }
-        .mensaje {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        .modal{
+            position: absolute;
+            top: 830px;
             background-color: #28a745;
-            color: white;
-            padding: 10px;
+            color: #fff;
             border-radius: 4px;
-            transition: opacity 0.5s;
+            display: none;
         }
-        .wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 60%;
         }
     </style>
 </head>
+
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <h1>TS HV Excedente-Faltante</h1>
+    <search>
+        <h1>Excedente/Faltante TS HV</h1>
+        <form action="">
 
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" />
-
-            <label for="sexo">Sexo del representante:</label>
             <select id="sexo">
-                <option value="él">Él</option>
+                <option disabled selected>Elige el sexo del/la representante</option>
+                <option value="el">El</option>
                 <option value="la">Ella</option>
             </select>
-
-            <label for="nombre">Nombre del representante:</label>
-            <input type="text" id="nombre" />
-
-            <label for="tote">Tote:</label>
-            <input type="text" id="tote" />
-
-            <label for="piezas">Piezas:</label>
-            <input type="number" id="piezas" />
-
-            <label for="meli">Meli:</label>
-            <input type="text" id="meli" />
-
-            <label for="destino">Destino:</label>
+            <select id="tipo">
+                <option disabled selected>Excedente o Faltante</option>
+                <option value="Excedente">Excedente</option>
+                <option value="Faltante">Faltante</option>
+            </select>
             <select id="destino">
+                <option disabled selected>Elige el destino de la TS</option>
                 <option value="MXJC01">MXJC01</option>
                 <option value="MXCD02">MXCD02</option>
                 <option value="MXCD05">MXCD05</option>
@@ -133,72 +156,140 @@
                 <option value="MXYU01">MXYU01</option>
                 <option value="MXGT01">MXGT01</option>
             </select>
-
-            <label for="piezasExcedentes">Piezas Excedentes o Faltantes:</label>
-            <input type="number" id="piezasExcedentes" />
-
-            <label for="excedenteFaltante">Excedente o Faltante:</label>
-            <select id="excedenteFaltante">
-                <option value="sobrantes">Excedente</option>
-                <option value="faltantes">Faltante</option>
-            </select>
-
-            <label for="pzasSolicitadasWMS">Pzas. solicitadas WMS:</label>
-            <input type="number" id="pzasSolicitadasWMS" />
-
-            <button id="generarTexto">Generar Texto</button>
-        </div>
-
-        <div class="output-container">
-            <h2>Texto Generado:</h2>
-            <p id="textoGenerado"></p>
-            <button id="copiarTexto" style="display: none">Copiar Texto</button>
-        </div>
+            <label for="fecha">Fecha del evento</label>
+            <input type="date" name="fecha" id="fecha">
+            <label for="nombre">Nombre del/la rep</label>
+            <input id="nombre" type="text" placeholder="Ej. Miguel Perez Garcia">
+            <label for="meli">Código MELI</label>
+            <input id="meli" type="text" placeholder="Ej. EDMY09319">
+            <label for="piezas">Piezas tomadas por el picker</label>
+            <input type="number" id="piezas" placeholder="piezas que se encontraron en el tote">
+            <label for="piezasSolicitadas">Piezas que WMS solicito</label>
+            <input type="number" id="piezasSolicitadas" placeholder="Piezas que el sistema pedia">
+            <label for="piezasError">Piezas Excedentes/Faltantes</label>
+            <input type="number" id="piezasError" placeholder="Piezas equivocadas por picker">
+            <label for="tote">Tote/MU</label>
+            <input type="text" id="tote" placeholder="Ej. MU-TT-RC">
+            <button id="generar">Generar texto</button>
+        </form>
+    </search>
+    <div class="containerText">
+        <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
+        <p class="textoOk"></p>
+        <button class="copiar">Copiar Texto</button>
+    </div>
+    <div class="modal">
+        <p>Texto copiado al portapales</p>
     </div>
 
-    <div class="mensaje" id="mensajeCopiado">
-        Texto copiado al portapapeles!
-    </div>
-
-    <script>
-        document.getElementById("generarTexto").onclick = function () {
-            const fecha = document.getElementById("fecha").value;
-            const sexo = document.getElementById("sexo").value;
-            const nombre = document.getElementById("nombre").value;
-            const tote = document.getElementById("tote").value;
-            const piezas = document.getElementById("piezas").value;
-            const meli = document.getElementById("meli").value;
-            const destino = document.getElementById("destino").value;
-            const piezasExcedentes = document.getElementById("piezasExcedentes").value;
-            const excedenteFaltante = document.getElementById("excedenteFaltante").value;
-            const pzasSolicitadasWMS = document.getElementById("pzasSolicitadasWMS").value;
-
-            const cantidadPiezas = piezas == 1 ? '1 pza.' : `${piezas} pzas.`;
-            const cantidadExcedentes = piezasExcedentes == 1 ? '1 pza.' : `${piezasExcedentes} pzas.`;
-            const eraEran = piezasExcedentes == 1 ? 'Era' : 'Eran';
-            const excedenteFaltanteTexto = piezasExcedentes == 1 ? (excedenteFaltante === 'sobrantes' ? 'excedente' : 'faltante') : (excedenteFaltante === 'sobrantes' ? 'excedentes' : 'faltantes');
-            const cantidadSolicitadas = pzasSolicitadasWMS == 1 ? '1 pza' : `${pzasSolicitadasWMS} pzas`;
-
-            const texto = `El día ${fecha}, ${sexo} rep. ${nombre} ingresó físicamente al tote ${tote} ${cantidadPiezas} de la meli ${meli}. Durante la auditoría TS HV ${destino}, se identificó que ${cantidadExcedentes} ${eraEran} ${excedenteFaltanteTexto}, dado que la solicitud original de la pickup era de solo ${cantidadSolicitadas}. El equipo de auditorías LP procedió a realizar la corrección correspondiente.`;
-
-            document.getElementById("textoGenerado").innerText = texto;
-            document.getElementById("copiarTexto").style.display = "block";
-        };
-
-        document.getElementById("copiarTexto").onclick = function () {
-            const texto = document.getElementById("textoGenerado").innerText;
-            navigator.clipboard.writeText(texto).then(() => {
-                const mensaje = document.getElementById("mensajeCopiado");
-                mensaje.style.display = "block";
-                setTimeout(() => {
-                    mensaje.style.opacity = "0";
-                    setTimeout(() => {
-                        mensaje.style.display = "none";
-                        mensaje.style.opacity = "1";
-                    }, 500);
-                }, 1500);
-            });
-        };
-    </script>
 </body>
+<script>
+    const $ = selector => document.querySelector(selector);
+    const $textoOk = $('.textoOk');
+    const $textoGenerado = $('#textoGenerado');
+    const $generar = $('#generar');
+    const $copiar = $('.copiar');
+    const $modal = $('.modal');
+
+
+
+
+    $generar.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const $nombreRep = $('#nombre').value;
+        const $sexo = $('#sexo').value;
+        const $tipo = $('#tipo').value;
+        const $meli = $('#meli').value;
+        const $fecha = $('#fecha').value;
+        const $piezas = $('#piezas').value;
+        const $tote = $('#tote').value;
+        const $destino = $('#destino').value;
+        const $piezasSolicitadas = $('#piezasSolicitadas').value;
+        const $piezasError = $('#piezasError').value;
+
+        let prenombre;
+
+        if ($sexo === 'el') {
+            prenombre = 'el representante';
+        } else if ($sexo === 'la') {
+            prenombre = 'la representante';
+        }
+
+        let numeropiezas;
+
+        if ($piezas == 1) {
+            numeropiezas = `${$piezas} pieza`
+        } else if ($piezas >= 2) {
+            numeropiezas = `${$piezas} piezas`
+        }
+        let piezasSolicitadas;
+        if($piezasSolicitadas == 1){
+            piezasSolicitadas = `${$piezasSolicitadas} pieza`;
+        }else if($piezasSolicitadas >=2){
+            piezasSolicitadas = `${$piezasSolicitadas} piezas`;
+        }
+
+        let piezasError;
+        if ($piezasError == 1){
+            piezasError = `${$piezasError} pieza era`;
+        } else if($piezasError >=2){
+            piezasError = `${$piezasError} piezas eran`;
+        }
+
+
+
+        if (!$nombreRep || !$piezasError || !$sexo || !$meli || !$fecha || !$piezasSolicitadas || !$tote || !$piezas || !$destino) {
+            $textoGenerado.textContent = '🤖: Hay un problema ❌';
+            $textoOk.style.textAlign = 'center';
+            $textoOk.textContent = '🤔Te faltan campos por llenar o aún no escribes nada👀, revísalo e inténtalo de nuevo 🤗.';
+            return; 
+        }
+
+
+let tipo;
+let tipoPiezasSolicitadas;
+
+if ($tipo === 'Excedente') {
+    tipoPiezasSolicitadas = $piezasError == 1 ? "excedente" : "excedentes";
+    tipo = `Sin embargo, de estas, ${piezasError} ${tipoPiezasSolicitadas}, ya que en la solicitud original de la pickup en WMS pedía ${piezasSolicitadas}. Se realizó la corrección por parte del equipo de Auditorías LP.`;
+} else if ($tipo === 'Faltante') {
+    tipoPiezasSolicitadas = $piezasError == 1 ? "falto" : "faltaron";
+    plural = $piezasError == 1 ? "pieza" : "piezas";
+    tipo = `Sin embargo, ${tipoPiezasSolicitadas} ${$piezasError} ${plural}, ya que en la solicitud original de la pickup en WMS pedía ${piezasSolicitadas}. Se realizó la corrección por parte del equipo de Auditorías LP.`;
+}
+
+
+
+
+
+    $textoGenerado.textContent = '🤖: Texto generado  con exito✅.'
+        const mensaje = `Durante la auditoría TS HV ${$destino} realizada el ${$fecha}, se observó que ${prenombre} ${$nombreRep}, en su proceso de picking, ingresó físicamente al tote ${$tote} un total de ${numeropiezas} de la meli ${$meli}. ${tipo}`;
+
+        $textoOk.style.textAlign = 'justify';
+        $textoOk.textContent = mensaje;
+        $copiar.style.display='block';
+
+
+        $copiar.addEventListener('click',()=>{
+            navigator.clipboard.writeText(mensaje).then(()=>{
+            });
+            $modal.style.display='block';
+            $modal.style.opacity = '1';
+
+        setTimeout(()=>{
+            $modal.style.opacity = '0';
+            setTimeout(()=>{
+            $modal.style.display = 'none';
+            },500)
+        },2000);
+         });
+    });
+
+
+
+
+
+</script>
+
 </html>
